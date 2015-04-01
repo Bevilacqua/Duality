@@ -65,6 +65,7 @@ play.prototype = {
         player.angle += difficulty_level;
         
         bullets.forEach(function(bullet) {
+            bullet.sprite.angle++;
             bullet.selfDestroy(); //Determine if bullet is outside of screen and should be destroyed
         });
         
