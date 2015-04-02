@@ -10,7 +10,10 @@ var target_velocity = 25;
 var bullets = []; //Array of bullet objects
 var white_bullets , black_bullets; //Group of bullet sprites
 var left_targets , right_targets; //Group of target sprites
+var textGroup;
 var backGroup; //Group that goes behind targets and bullets
+
+var score_text;
 
 var elapsedTime = 0.0;
 var delayTime = 5000.0;
@@ -36,6 +39,7 @@ play.prototype = {
         left_targets = this.game.add.group();
         right_targets = this.game.add.group();
         
+        textGroup = this.game.add.group();
         //Key Listeners
         this.game.input.keyboard.addKey(Phaser.Keyboard.LEFT).onDown.add(function () { //Note make sure this is not in update (fps problems)
             var bullet = new Bullet(player.x , player.y , player.rotation - Math.PI , bullet_velocity , this.game , 'white_bullet');
@@ -52,11 +56,11 @@ play.prototype = {
     },
     
     create: function() {
-        
+
         var background = this.game.add.sprite(this.game.width / 2 , this.game.height / 2 , 'background');
         background.anchor.set(.5);
         backGroup.add(background);
-        
+     
         //Player
         player = this.game.add.sprite(this.game.width / 2 , this.game.height / 2 , 'player');
         player.anchor.set(.5);
@@ -65,8 +69,11 @@ play.prototype = {
         player.body.collideWorldBounds = true;
         
         //Misc.
+        score_text = this.game.add.text(this.game.width / 2 , this.game.height / 10 , "Score: " + this.game.global.score , {fill: "grey"});
+        score_text.anchor.set(.5);
+        score_text.scale.set(1.25);
         
-        //DEBUG
+        //Initial target
         left_targets.add(new Target(this.game.width / 5,0,false,25,this.game,'target'));
 
     },
@@ -85,6 +92,7 @@ play.prototype = {
         }
         
         //Misc.
+        score_text.text = "Score: " + this.game.global.score;
         
         if(elapsedTime > delayTime) {
             if(this.game.rnd.integerInRange(0, 1) == 0)
@@ -140,13 +148,13 @@ play.prototype = {
             target.kill();
             bullet.kill();
             difficulty_level += .1;
-            console.log("+1(a)");
+            target.game.global.score++;
         }); //+1 Point
         this.game.physics.arcade.collide(left_targets , black_bullets , function(target , bullet) {
             target.kill();
             bullet.kill();
             difficulty_level += .1;
-            console.log("+1(b)");
+            target.game.global.score++;
         }); //+1 Point
         
     }

@@ -9,8 +9,12 @@ setup.prototype = {
         
         this.game.stage.backgroundColor = '#FFFFF0';
         
+        this.game.global = {
+            score: 0,
+            top_score: 0
+        };
+        
         this.game.state.start('play');
-
   },
     
     create: function() {

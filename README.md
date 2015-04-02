@@ -1,7 +1,7 @@
 # Duality
 A challenging browser game
 
-###Feel free to help out or play the game, in its current unfinished state, [here](bevilacqua.me/Duality)
+###Feel free to help out or play the game, in its current unfinished state, [here](http://www.bevilacqua.me/Duality)
 
 ###How to play
 Try to get the white balls into the targets on the black side and the black balls
