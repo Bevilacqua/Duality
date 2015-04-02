@@ -40,6 +40,7 @@ play.prototype = {
         this.game.load.image('black_bullet' , "res/black_bullet.png");
         this.game.load.image('white_bullet' , "res/white_bullet.png");
         this.game.load.image('target' , "res/target.png");
+        this.game.load.image('background' , "res/back.png");
         
         //Other loading
         backGroup = this.game.add.group(); //Must be declared before other groups
