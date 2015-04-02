@@ -111,7 +111,7 @@ play.prototype = {
         });
         
         left_targets.forEach(function(target) {
-           if(target.y > this.game.height) {
+           if(target.y > target.game.height) {
                target.destroy(); 
                console.log("lose");
            }
