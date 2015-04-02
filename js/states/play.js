@@ -3,11 +3,11 @@ var play = function(game) {
 
 var player; //The player sprite
 
-var bullet_velocity = 150; //Speed of bullets
-var difficulty_level = .5;
-var target_velocity = 25;
+var bullet_velocity; //Speed of bullets
+var difficulty_level;
+var target_velocity;
 
-var bullets = []; //Array of bullet objects
+var bullets; //Array of bullet objects
 var white_bullets , black_bullets; //Group of bullet sprites
 var left_targets , right_targets; //Group of target sprites
 var textGroup;
@@ -15,20 +15,31 @@ var backGroup; //Group that goes behind targets and bullets
 
 var score_text;
 
-var elapsedTime = 0.0;
-var delayTime = 5000.0;
+var elapsedTime;
+var delayTime;
 
 play.prototype = {
+    
+    init: function() {
+        bullets = [];
+        elapsedTime = 0.0;
+        delayTime = 5000.0;
+        
+        bullet_velocity = 150; //Speed of bullets
+        difficulty_level = .5;
+        target_velocity = 25;
+        
+        this.game.global.score = 0;
+    },
+    
     preload: function() {
         //Debug/Console logging
-        console.log("Game start.");
         
         //Image loading
         this.game.load.image('player' , "res/ball.png");
         this.game.load.image('black_bullet' , "res/black_bullet.png");
         this.game.load.image('white_bullet' , "res/white_bullet.png");
         this.game.load.image('target' , "res/target.png");
-        this.game.load.image('background' , "res/back.png");
         
         //Other loading
         backGroup = this.game.add.group(); //Must be declared before other groups
@@ -133,15 +144,15 @@ play.prototype = {
         });
         
         //Collision
-        this.game.physics.arcade.collide(left_targets , white_bullets , function(target , bullet) {
+        this.game.physics.arcade.collide(left_targets , white_bullets , function(target , bullet , context) {
             target.kill();
             bullet.kill();
-            console.log("lose");
+            target.game.state.start('title', true , false);
         }); //Lose
         this.game.physics.arcade.collide(right_targets , black_bullets , function(target , bullet) {
             target.kill();
             bullet.kill();
-            console.log("lose");
+            target.game.state.start('title' , true , false);
         }); //Lose
         
         this.game.physics.arcade.collide(right_targets , white_bullets , function(target , bullet) {
@@ -158,4 +169,5 @@ play.prototype = {
         }); //+1 Point
         
     }
+    
 }

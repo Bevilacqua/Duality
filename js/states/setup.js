@@ -14,7 +14,7 @@ setup.prototype = {
             top_score: 0
         };
         
-        this.game.state.start('play');
+        this.game.state.start('title');
   },
     
     create: function() {
