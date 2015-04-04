@@ -132,15 +132,13 @@ play.prototype = {
         
         left_targets.forEach(function(target) {
            if(target.y > target.game.height) {
-               target.destroy(); 
-               console.log("lose");
+                target.game.state.start('post_game', true , false);
            }
         });
         
         right_targets.forEach(function(target) {
            if(target.y < 0) {
-               target.destroy(); 
-               console.log("lose");
+                target.game.state.start('post_game', true , false);
            }
         });
         
@@ -148,12 +146,12 @@ play.prototype = {
         this.game.physics.arcade.collide(left_targets , white_bullets , function(target , bullet , context) {
             target.kill();
             bullet.kill();
-            target.game.state.start('title', true , false);
+            target.game.state.start('post_game', true , false);
         }); //Lose
         this.game.physics.arcade.collide(right_targets , black_bullets , function(target , bullet) {
             target.kill();
             bullet.kill();
-            target.game.state.start('title' , true , false);
+            target.game.state.start('post_game' , true , false);
         }); //Lose
         
         this.game.physics.arcade.collide(right_targets , white_bullets , function(target , bullet) {
